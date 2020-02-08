@@ -3,14 +3,15 @@ var mysql = require('mysql');
 // db config
 var db = mysql.createConnection({
   host: '127.0.0.1',
-  user: "showplex",
+  user: "root",
   password: "root",
   port: 3306,
-  database: "showplex"
+  database: "showplex",
+  insecureAuth : true
 });
 db.connect();
 
-function query(queryState,callback = ()=>{}){
+function query(queryState, callback = ()=>{}){
   db.query(queryState,(err,rows)=>{
     if(err) throw err;
     let result = JSON.parse(JSON.stringify(rows));
