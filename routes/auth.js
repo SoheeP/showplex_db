@@ -57,3 +57,5 @@ router.route('/signup')
     });
   };
 })
+
+module.exports = router;
