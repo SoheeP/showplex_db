@@ -70,7 +70,7 @@ router.route('/signin')
     let result_data;
     // 반환결과가 있을 때
     if(results.length > 0){
-      result_data = _.omit(results[0], ['password', 'phone', 'verifyNumber']);
+      result_data = _.omit(results[0], ['password', 'verifyNumber']);
       result_data.result = 1;
       let ip = '207.97.227.239'; // 가상
       let geo = geoip.lookup(ip);
