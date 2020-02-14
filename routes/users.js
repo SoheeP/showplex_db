@@ -19,13 +19,16 @@ router.get('/mypage', (req, res, next) => {
 })
 
 router.post('/profile/change', (req, res, next) => {
-  console.log(req.body);
-  const { usernum, password, username, phone } = req.body;
-  const changeData = _.omitBy([password, username, phone], _.isUndefined);
+  console.log(req.body, 'req.body');
+  // const { usernum, password, username, phone } = req.body;
+  const { usernum, ...reqBody } = req.body;
   const body = {};
-  console.log(changeData);
-  query(`UPDATE user SET username='${username}', password='${password}', phone='${phone}'  where usernum='${usernum}'`, (result) => {
-    console.log(result);
+  let queryString = '';
+  for(let key in reqBody){
+    queryString += `${key}='${reqBody[key]}', `
+  }
+  query(`UPDATE showplex.user SET ${queryString.slice(0, queryString.length-2)} where usernum='${usernum}'`, (result) => {
+    console.log(result, 'After update result');
     body.result = 1;
     res.json(body);
   })
