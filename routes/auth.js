@@ -38,7 +38,7 @@ router.route('/signup')
         res.json({ result: 4 });
       } else {
         // 회원가입
-        db.query(`insert into showplex.user (email, password, username, phone, verifyNumber, verify) values ("${email}", "${password}", "${username}", "${phone}", "${verifyNumber}", "${verify}")`, (error, results) => {
+        query(`insert into showplex.user (email, password, username, phone, verifyNumber, verify) values ("${email}", "${password}", "${username}", "${phone}", "${verifyNumber}", "${verify}")`, (error, results) => {
           if(error){
             result = { result: 2 };
             res.json(results);
@@ -78,7 +78,7 @@ router.route('/signin')
       let device = req.device.type.toUpperCase();
       let nowTime = moment().format('YYYY/MM/DD hh:mm:ss');
       let userSeq = result_data.usernum;
-      db.query(`insert into showplex.log (usernum, country, loginTime, ip, device) values ("${userSeq}", "${geo.country}", "${nowTime}", "${ip}", "${device}")`);
+      query(`insert into showplex.log (usernum, country, loginTime, ip, device) values ("${userSeq}", "${geo.country}", "${nowTime}", "${ip}", "${device}")`);
       res.json(result_data);
     } else {
       result_data = { result: 2 };
