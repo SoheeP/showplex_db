@@ -15,10 +15,10 @@ router.route('/signup')
   password     = req.body.password,
   username     = req.body.username,
   phone        = req.body.phone,
-  verifyNumber = req.body.verifyNumber;
+  verifyNumber = req.body.captcha;
   // capcha로 우선 설정
   let verify, result;
-
+  console.log(email, password, username, phone, verifyNumber);
   /** 
    * NOTE: result 값 
    * 1: 가입 완료
@@ -38,11 +38,11 @@ router.route('/signup')
         res.json({ result: 4 });
       } else {
         // 회원가입
-        query(`insert into showplex.user (email, password, username, phone, verifyNumber, verify) values ("${email}", "${password}", "${username}", "${phone}", "${verifyNumber}", "${verify}")`, (error, results) => {
+        db.query(`insert into showplex.user (email, password, username, phone, verifyNumber, verify) values ("${email}", "${password}", "${username}", "${phone}", "${verifyNumber}", "${verify}")`, (error, results) => {
           if(error){
             result = { result: 2 };
-            res.json(results);
-            console.log(`Error: 2 : ${error}`);
+            res.json(result);
+            console.log(`Error: 2 : ${error}, ${results}`);
           } else {
             result = { result: 1 };
             res.json(result);
