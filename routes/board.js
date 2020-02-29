@@ -25,6 +25,35 @@ router.post('/write', (req, res, next) => {
     };
   });
 });
+router.route('/modify')
+.get((req, res, next) => {
+  // 내용 뿌려주기
+  let { id, usernum } = req.body;
+  db.query(`select * from showplex.freeboard where id="${id}" and usernum="${usernum}"`, (error, results) => {
+    if(error) throw error;
+    if(results.length > 0){
+      res.json(results[0]);
+    } else {
+      // 게시글을 찾을 수 없음
+      res.json({ result: 2 });
+    };
+  });
+})
+.post((req, res, next) => {
+  let { id, usernum, username, title, contents } = req.body;
+
+  let time = moment().format('YYYY-MM-DD hh:mm:ss');
+  db.query(`select * from showplex.freeboard where id="${id}" and usernum="${usernum}"`, (error, results) => {
+    if(error) throw error;
+    if(results.length > 0){
+      query(`UPDATE showplex.freeboard SET title="${title}", contents="${contents}", author="${username}", time="${time}" WHERE id="${id}"`, (result) => {
+        res.json({ result : 1 });
+      })
+    } else {
+      res.json({ result: 2 });
+    };
+  });
+});
 
 router.post('/delete', (req, res, next) => {
   let { usernum, id } = req.body;
@@ -53,8 +82,8 @@ router.get('/detail', (req, res, next) => {
     } else {
       // id 없을 경우
       res.json({result: 2})
-    }
-  })
+    };
+  });
 })
 
 module.exports = router;
