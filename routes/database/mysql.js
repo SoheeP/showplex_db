@@ -21,5 +21,5 @@ function query(queryState, callback = ()=>{}){
 
 
 
-exports.db = db;
+exports.db    = db;
 exports.query = query;
