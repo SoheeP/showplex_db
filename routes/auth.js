@@ -87,4 +87,12 @@ router.route('/signin')
   })
 })
 
+router.route('/withdrawal')
+.post((req, res, next) => {
+  let { usernum, email } = req.body
+  db.query(`DELETE FROM showplex.user WHERE usernum="${usernum}" and email=${email}`, (result)=>{
+    res.json({result: 1});
+  })
+})
+
 module.exports = router;
