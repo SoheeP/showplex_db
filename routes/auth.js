@@ -12,11 +12,12 @@ router.route('/signup')
 .post(async (req, res, next) => {
 
   const email  = req.body.email,
-  password     = req.body.password,
+  password     = req.body.hashPassword,
   username     = req.body.username,
   phone        = req.body.phone,
   verifyNumber = req.body.captcha;
   // capcha로 우선 설정
+  console.log(password, 'password')
   let verify, result;
   /** 
    * NOTE: result 값 
@@ -57,7 +58,7 @@ router.route('/signin')
 .post(async (req, res, next) => {
   
   const email = req.body.email,
-  password    = req.body.password;
+  password    = req.body.hashPassword;
 
   /** NOTE: result 값
    * 1: 로그인 성공 및 로그 기록
