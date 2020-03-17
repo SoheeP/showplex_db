@@ -71,11 +71,12 @@ router.get('/freeboard', (req, res, next) => {
 router.post('/write', (req, res, next) => {
   let { usernum, username, title, contents } = req.body;
   let time = moment().format('YYYY-MM-DD hh:mm:ss');
+  let replaceContents = contents.replace(/\"/g, "'" );
   db.query(`select * from showplex.user where usernum="${usernum}"`, (error, results) => {
     if(error) throw error;
     if(results.length > 0){
-      query(`INSERT INTO showplex.freeboard (usernum, title, contents, author, time) VALUES ("${usernum}", "${title}", "${contents}", "${username}", "${time}")`)
-      console.log(req.body);
+      query(`INSERT INTO showplex.freeboard (usernum, title, contents, author, time) VALUES ("${usernum}", "${title}", "${replaceContents}", "${username}", "${time}")`)
+      console.log(req.body, replaceContents);
       res.json({ result : 1 });
     } else {
       res.json({ result: 2 });
@@ -98,12 +99,12 @@ router.route('/modify')
 })
 .post((req, res, next) => {
   let { id, usernum, username, title, contents } = req.body;
-
+  let replaceContents = contents.replace(/\"/g, "'" );
   let time = moment().format('YYYY-MM-DD hh:mm:ss');
   db.query(`select * from showplex.freeboard where id="${id}" and usernum="${usernum}"`, (error, results) => {
     if(error) throw error;
     if(results.length > 0){
-      query(`UPDATE showplex.freeboard SET title="${title}", contents="${contents}", author="${username}", time="${time}" WHERE id="${id}"`, (result) => {
+      query(`UPDATE showplex.freeboard SET title="${title}", contents="${replaceContents}", author="${username}", time="${time}" WHERE id="${id}"`, (result) => {
         res.json({ result : 1 });
       })
     } else {
