@@ -25,7 +25,7 @@
 1. Git bash에서 아래 repo를 클론합니다.
 
    ```bash
-   $ git clone https://github.com/SoheeP/showplex.git
+   $ git clone https://github.com/SoheeP/showplex_db.git
    ```
 
 2. Npm을 이용하여 필요한 모듈을 설치합니다.
