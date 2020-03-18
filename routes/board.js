@@ -71,10 +71,12 @@ router.get('/freeboard', (req, res, next) => {
 router.post('/write', (req, res, next) => {
   let { usernum, username, title, contents } = req.body;
   let time = moment().format('YYYY-MM-DD hh:mm:ss');
+  let replaceContents = contents.replace(/\"/g, "\'");
+  console.log(replaceContents);
   db.query(`select * from showplex.user where usernum="${usernum}"`, (error, results) => {
     if(error) throw error;
     if(results.length > 0){
-      query(`INSERT INTO showplex.freeboard (usernum, title, contents, author, time) VALUES ("${usernum}", "${title}", "${contents}", "${username}", "${time}")`)
+      query(`INSERT INTO showplex.freeboard (usernum, title, contents, author, time) VALUES ("${usernum}", "${title}", "${replaceContents}", "${username}", "${time}")`)
       console.log(req.body);
       res.json({ result : 1 });
     } else {
