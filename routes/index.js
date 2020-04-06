@@ -34,7 +34,7 @@ router.route('/movie/list')
   }, [])
   let get_query = query_arr.join('&');
   if(query_arr.length === 1 && get_query.match('limit')){
-    axios.get(`https://yts.tl/api/v2/list_movies.json&${get_query}`)
+    axios.get(`https://yts.mx/api/v2/list_movies.json&${get_query}`)
     .then((response) => {
       res.json(response.data)
     });
