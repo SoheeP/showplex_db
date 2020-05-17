@@ -81,7 +81,7 @@ router.route('/play/list')
     return arr;
   }, [])
   let get_query = query_arr.join('&');
-  axios.get(`http://kopis.or.kr/openApi/restful/pblprfr?service=${KEY}&stdate=20190101&eddate=20211201&rows=15&shcate=AAAA&prfstate=02&${get_query}`)
+  axios.get(`https://yts.tl/api/v2/movie_suggestions.json?${get_query}`)
   .then((response) => {
     res.json(response.data)
   })
@@ -90,7 +90,7 @@ router.route('/play/list')
 router.route('/play/detail')
 .get(async (req, res, next) => {
 console.log(req.body.id);
-  axios.get(`http://kopis.or.kr/openApi/restful/pblprfr/${req.body.id}?service=${KEY}`)
+  axios.get(`https://yts.mx/api/v2/movie_details.json?${get_query}`)
   .then((response) => {
     res.json(response.data)
   })
@@ -104,7 +104,7 @@ router.route('/musical/list')
     return arr;
   }, [])
   let get_query = query_arr.join('&');
-  axios.get(`http://kopis.or.kr/openApi/restful/pblprfr?service=${KEY}&stdate=20190101&eddate=20211201&rows=15&shcate=AAAB&prfstate=02&${get_query}`)
+  axios.get(`https://yts.tl/api/v2/movie_suggestions.json?${get_query}`)
   .then((response) => {
     res.json(response.data)
   })
@@ -114,7 +114,7 @@ router.route('/musical/detail')
 .get(async (req, res, next) => {
 console.log(req.body.id);
   
-  axios.get(`http://kopis.or.kr/openApi/restful/pblprfr/${req.body.id}?service=${KEY}`)
+  axios.get(`https://yts.mx/api/v2/movie_details.json?${get_query}`)
   .then((response) => {
     res.json(response.data)
   })
